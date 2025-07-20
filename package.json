@@ -1,0 +1,141 @@
+{
+  "name": "gemini-universal-autocomplete",
+  "displayName": "Gemini Universal Autocomplete",
+  "description": "AI-powered autocomplete for all file types using Google Gemini",
+  "version": "1.0.0",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "autocomplete",
+    "ai",
+    "gemini",
+    "completion",
+    "universal"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gemini-autocomplete-container",
+          "title": "Gemini Autocomplete",
+          "icon": "$(zap)"
+        }
+      ]
+    },
+    "views": {
+      "gemini-autocomplete-container": [
+        {
+          "id": "geminiAutocompleteView",
+          "name": "Controls",
+          "when": "true"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "gemini-autocomplete.setApiKey",
+        "title": "Set API Key",
+        "category": "Gemini",
+        "icon": "$(key)"
+      },
+      {
+        "command": "gemini-autocomplete.toggleEnabled",
+        "title": "Toggle Autocomplete",
+        "category": "Gemini",
+        "icon": "$(symbol-boolean)"
+      },
+      {
+        "command": "gemini-autocomplete.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "gemini-autocomplete.openSettings",
+        "title": "Settings",
+        "icon": "$(gear)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "gemini-autocomplete.refresh",
+          "when": "view == geminiAutocompleteView",
+          "group": "navigation"
+        },
+        {
+          "command": "gemini-autocomplete.openSettings",
+          "when": "view == geminiAutocompleteView",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Gemini Universal Autocomplete",
+      "properties": {
+        "geminiAutocomplete.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your Gemini API key",
+          "scope": "application"
+        },
+        "geminiAutocomplete.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable autocomplete suggestions"
+        },
+        "geminiAutocomplete.maxSuggestions": {
+          "type": "number",
+          "default": 3,
+          "description": "Maximum number of suggestions to show",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "geminiAutocomplete.triggerDelay": {
+          "type": "number",
+          "default": 500,
+          "description": "Delay in milliseconds before triggering suggestions",
+          "minimum": 100,
+          "maximum": 2000
+        },
+        "geminiAutocomplete.contextLines": {
+          "type": "number",
+          "default": 10,
+          "description": "Number of context lines to send to Gemini",
+          "minimum": 5,
+          "maximum": 50
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "editor.action.inlineSuggest.trigger",
+        "key": "ctrl+space",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  }
+}
