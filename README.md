@@ -1,0 +1,2 @@
+# Gemini Autocomplete vscode
+
